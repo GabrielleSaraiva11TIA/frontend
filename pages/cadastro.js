@@ -5,7 +5,7 @@ button.onclick = (event) => {
 }
 
 
-function signUpKraken(){
+async function signUpKraken(){
     const name = document.querySelector("#name").value
     const email = document.querySelector("#email").value
     const age = document.querySelector("#age").value
@@ -25,11 +25,20 @@ function signUpKraken(){
         password
     }
 
-    fetch("http://localhost:3333/cadastrar", {
+    const response = await fetch("http://localhost:3333/cadastrar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({ user })
-    })
+    }).then(response => response.json())
+
+    //desestruturando a resposta
+    const { message } = response
+
+    //exibindo em um alert
+    alert(message)
+
+    //redirecionando para index
+    window.location.href = "../index.html"
 }
