@@ -40,5 +40,5 @@ async function signUpKraken(){
     alert(message)
 
     //redirecionando para index
-    window.location.href = "../index.html"
+    window.location.href = "../../index.html"
 }

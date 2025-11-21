@@ -1,20 +1,28 @@
-const button = document.querySelector("button")
-const main = document.querySelector("main")
-button.addEventListener("click", searchKrakens)
+function init() {
+    const navUL = document.querySelector("nav ul")
 
-async function searchKrakens() {
-    const persons = await fetch("http://localhost:3333").then(response => response.json())
-    
-    persons.map((person, index) => {
-        main.innerHTML += `
-            <section>
-                <h2>Nome: ${person.name}</h2>
-                <p>E-mail: ${person.email}</p>
-                <p>Idade: ${person.age} anos</p>
-                <p>Apelido: ${person.nickname}</p>
-                ${index + 1 === persons.length ? "" : "<hr>"}
-            </section>
+    //recupera o user do sessionStorage e converte em objeto
+    const user = JSON.parse(sessionStorage.getItem("user"))
+
+    if(user){
+        navUL.innerHTML += `
+            <li>
+                <h2>Usuário: ${user.name}</h2>
+            </li>
+            <li>
+                <button>Sair</button>
+            </li>
         `
-    })
+
+        return
+    }
+
+    //se o usuário não estiver logado, mostramos o botão de login
+    navUL.innerHTML += `
+         <li>
+            <a href="./pages/login/login.html">Login</a>
+        </li>
+    `
 }
 
+init()
